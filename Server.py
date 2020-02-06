@@ -108,10 +108,11 @@
 #     res = requests.get(url=books_url)
 #     print(res.json())
 
-from flask import Flask, Response,request
+from flask import Flask, Response, request
 import json
 import requests
 from copy import deepcopy
+
 app = Flask(__name__, static_url_path='', static_folder='dist')
 
 users = [
@@ -164,7 +165,8 @@ def buy_item(name):
                 dict["inventory"] -= 1
                 item = dict
     if item:
-        return json.dumps(f"Congratulations, you've just bought {item['name']} for {item['price']}. There are {item['inventory']} left now in the store.")
+        return json.dumps(
+            f"Congratulations, you've just bought {item['name']} for {item['price']}. There are {item['inventory']} left now in the store.")
     else:
         return "No such item"
 
@@ -178,8 +180,6 @@ def sale_item():
             if items["price"] > 10:
                 items["price"] //= 2
     return json.dumps(store_copy)
-
-
 
 
 @app.route('/sanity')
